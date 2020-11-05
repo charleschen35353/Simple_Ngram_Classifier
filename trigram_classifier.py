@@ -205,9 +205,8 @@ class TrigramModel(object):
         return 2**(-l)
 
 
-def essay_scoring_experiment(training_files, testdirs):
+def essay_scoring_experiment(training_file1, training_file2, testdir1, testdir2):
 
-        models = [TrigramModel(training_fils[i]) for i in range(len(training_files)) ]
         model1 = TrigramModel(training_file1) # high
         model2 = TrigramModel(training_file2) # low
 
@@ -227,7 +226,6 @@ def essay_scoring_experiment(training_files, testdirs):
             total += 1
         
         
-        
         return correct*1.0 / total
 
 if __name__ == "__main__":
@@ -236,11 +234,7 @@ if __name__ == "__main__":
 
     
     # Essay scoring experiment: 
-    data_path = "./hw1_data/ets_toefl_data"
-    acc = essay_scoring_experiment(os.path.join(data_path,"train_high.txt"), os.path.join(data_path,"train_low.txt"), \
-                                   os.path.join(data_path,"test_high"), os.path.join(data_path,"test_low"))
+
+    acc = essay_scoring_experiment(*sys.argv[1:])
     print('Accuracy: {}'.format(acc))
-    assert acc >= 0.8
-    
-    print("ALL TEST PASSED")
 
